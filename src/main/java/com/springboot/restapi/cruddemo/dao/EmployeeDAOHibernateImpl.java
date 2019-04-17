@@ -44,7 +44,7 @@ public class EmployeeDAOHibernateImpl implements EmployeeDAO {
     @Override
     public void deleteById(int id) {
         Session currentSession = entityManager.unwrap(Session.class);
-        Query deleteEmployee = currentSession.createQuery("delete from employee where id=:employeeId");
+        Query deleteEmployee = currentSession.createQuery("delete from Employee where id=:employeeId");
             deleteEmployee.setParameter("employeeId",id);
             deleteEmployee.executeUpdate();
     }

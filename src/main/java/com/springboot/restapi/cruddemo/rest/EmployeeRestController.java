@@ -3,9 +3,7 @@ import com.springboot.restapi.cruddemo.dao.EmployeeDAO;
 import com.springboot.restapi.cruddemo.entity.Employee;
 import com.springboot.restapi.cruddemo.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -24,6 +22,40 @@ public class EmployeeRestController {
     @GetMapping("/employees")
     public List<Employee> findAll(){
         return employeeService.findAll();
+    }
+
+    //add mapping for GET /employes/{id}
+    @GetMapping("/employees/{emplId}")
+    public Employee getEmployee(@PathVariable int emplId){
+        Employee employee = employeeService.findById(emplId);
+        if(employee == null)
+            throw new RuntimeException("Employee id not found: "+emplId);
+        return employee;
+    }
+
+    //add mapping for POST /employees - add new employee
+    @PostMapping("/employees")
+    public Employee addEmployee(@RequestBody Employee employee){
+        employee.setId(0);
+        employeeService.save(employee);
+        return employee;
+    }
+
+    //add mapping for PUT /employees - update existing employee
+    @PutMapping("/employees")
+    public Employee updateEmployee(@RequestBody Employee employee){
+        employeeService.save(employee);
+        return employee;
+    }
+
+    //add mapping for DELETE /employees/id
+    @DeleteMapping("/employees/{emplId}")
+    public String deleteEmployee(@PathVariable int emplId){
+        Employee employee = employeeService.findById(emplId);
+        if(employee == null)
+            throw new RuntimeException("Employee id not found: "+emplId);
+        employeeService.deleteById(emplId);
+        return "Deleted employee id - "+emplId;
     }
 }
 
