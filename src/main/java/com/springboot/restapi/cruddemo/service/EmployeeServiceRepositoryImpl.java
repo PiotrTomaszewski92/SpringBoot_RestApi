@@ -1,14 +1,18 @@
 package com.springboot.restapi.cruddemo.service;
 import com.springboot.restapi.cruddemo.dao.EmployeeRepository;
 import com.springboot.restapi.cruddemo.entity.Employee;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class EmployeeServiceRepositoryImpl implements EmployeeService {
 
     private EmployeeRepository employeeRepository;
 
+    @Autowired
     public EmployeeServiceRepositoryImpl(EmployeeRepository employeeRepository) {
         this.employeeRepository = employeeRepository;
     }
